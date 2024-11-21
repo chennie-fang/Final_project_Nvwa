@@ -10,29 +10,29 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager itemManager = null;
     private List<RecipeItemUI> currentRECUI = new List<RecipeItemUI>();
-    private List<RecipeItem> requiredItems;                            // 当前配方所需的物品
-    //private Dictionary<PointUIPanels, GameObject> PointUIs = new();        // 可交互面板
-    private Dictionary<Item, bool> placedItems = new Dictionary<Item, bool>(); // 记录物品是否已放置
+    private List<RecipeItem> requiredItems;                                     // 当前配方所需的物品
+    //private Dictionary<PointUIPanels, GameObject> PointUIs = new();           // 可交互面板
+    private Dictionary<Item, bool> placedItems = new Dictionary<Item, bool>();  // 记录物品是否已放置
     private RecipeData currentDatas;
 
 
-    //public GameObject generatedObject; // 需要逐渐显现的物体
+    //public GameObject generatedObject;        // 需要逐渐显现的物体
     public GameObject PointerUI;
-    public GameObject tutorialPanel; // 新手引导界面
-    public Button startButton;       // 开始按钮
-    public GameObject completionPanel; // 配方完成时显示的UI面板
-    public Button closeButton;         // 关闭面板的按钮
-    public GameObject countdownPanel; // 倒计时界面
-    public TMP_Text countdownText;       // 倒计时文本
-    public GameObject congratulationsPanel; // 恭喜完成的 UI 面板
-    public Button closeCongratulationsButton; // 关闭恭喜完成面板的按钮
-    public Button nextSceneButton; // 切换到下一个场景的按钮
-    public GameObject testCompletionPanel; //测试配方完成时的 UI 面板
-    public Button proceedToMainButton; // 进入正式配方的按钮
-    public GameObject DiePanel;//失败界面
-    public Button DieBtn;//失败按钮
-    public GameObject testfpanel;//新手引导结束
-    public Button testfBtn;//新手引导结束按钮
+    public GameObject tutorialPanel;            // 新手引导界面
+    public Button startButton;                  // 开始按钮
+    public GameObject completionPanel;          // 配方完成时显示的UI面板
+    public Button closeButton;                  // 关闭面板的按钮
+    public GameObject countdownPanel;           // 倒计时界面
+    public TMP_Text countdownText;              // 倒计时文本
+    public GameObject congratulationsPanel;     // 恭喜完成的 UI 面板
+    public Button closeCongratulationsButton;   // 关闭恭喜完成面板的按钮
+    public Button nextSceneButton;              // 切换到下一个场景的按钮
+    public GameObject testCompletionPanel;      //测试配方完成时的 UI 面板
+    public Button proceedToMainButton;          // 进入正式配方的按钮
+    public GameObject DiePanel;                 //失败界面
+    public Button DieBtn;                       //失败按钮
+    public GameObject testfpanel;               //新手引导结束
+    public Button testfBtn;                     //新手引导结束按钮
     public GameObject peifangpanel;
 
     public GameObject itemPrefab; // 物体的预制件
@@ -65,7 +65,7 @@ public class ItemManager : MonoBehaviour
         closeCongratulationsButton.onClick.AddListener(CloseCongratulationsPanel);
         nextSceneButton.onClick.AddListener(SwitchToNextScene);
         // 初始化测试配方完成面板
-        testCompletionPanel.SetActive(true);
+        StartCoroutine(AllBefore());
         proceedToMainButton.onClick.AddListener(OnProceedToMainButtonClicked);
 
         DiePanel.SetActive(false);
@@ -134,8 +134,8 @@ public class ItemManager : MonoBehaviour
     // 切换到下一个场景
     private void SwitchToNextScene()
     {
-        // 假设下一个场景的名称为 "NextScene"
-        SceneManager.LoadScene("NextScene");
+        // 假设下一个场景的名称为 "StartScene"
+        SceneManager.LoadScene("StartScene");
     }
 
     private void OnCloseButtonClicked()
@@ -714,6 +714,12 @@ public class ItemManager : MonoBehaviour
 
         // 启动倒计时并进入下一个配方
         coolDownIE = StartCoroutine(CountdownAndSwitchRecipe());
+    }
+
+    private IEnumerator AllBefore()
+    {
+        yield return new WaitForSeconds(10f);
+        testCompletionPanel.SetActive(true);
     }
 }
 

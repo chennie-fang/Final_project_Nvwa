@@ -11,7 +11,8 @@ public class PlayerStatusDisplay : MonoBehaviour
     void OnEnable()
     {
         currentBlood = mImage.Length;
-        foreach(GameObject gameObject in mImage)
+        ProcessControl.Instance.PlayerBlood = currentBlood;
+        foreach (GameObject gameObject in mImage)
         {
             gameObject.SetActive(true);
         }
@@ -28,6 +29,7 @@ public class PlayerStatusDisplay : MonoBehaviour
     {
         Scene2VoiceManager.Instance.InjuredEffectPlay();
         currentBlood -= 1;
+        ProcessControl.Instance.PlayerBlood = currentBlood;
         if (currentBlood >= 0) 
         {
             mImage[currentBlood].SetActive(false);

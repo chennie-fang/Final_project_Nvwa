@@ -42,7 +42,13 @@ public class Item : MonoBehaviour
     }
     public void StartIEn()
     {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
         StartCoroutine(destorymyslef());
+        //destorymyslef();
     }
 
    
@@ -62,7 +68,7 @@ public class Item : MonoBehaviour
             PlayDestructionSound(recipeDestructionSound);
         }
 
-        yield return new WaitForSeconds(0.15f); // 等待特效播放完毕（根据特效时长调整）
+        yield return new WaitForSeconds(0.25f); // 等待特效播放完毕（根据特效时长调整）
         //yield return null;
         ItemManager.itemManager.StartIE(this);
         //ItemManager.itemManager.OnTriggerEnterdown(this);
@@ -73,8 +79,8 @@ public class Item : MonoBehaviour
         if (destructionEffect != null)
         {
             // 实例化特效并设置位置
-            GameObject effectInstance = Instantiate(destructionEffect, transform.position, Quaternion.identity);
-            Destroy(effectInstance, 2f); // 2秒后销毁特效实例
+            //GameObject effectInstance = Instantiate(destructionEffect, transform.position, Quaternion.identity);
+            //Destroy(effectInstance, 2f); // 2秒后销毁特效实例
         }
     }
     private void PlayDestructionSound(AudioClip sound)

@@ -14,7 +14,7 @@ public class MonsterBrushManager : MonoBehaviour
 
     private float nextSpawnTime;            // 下一次刷怪的时间
     private int currentWavesNumber;         // 当前波次出现怪物数量
-    
+
     private int currentWaves;               // 当前波次
     private int lastSpawnPointIndex = -1;   // 防止和上一次刷新位置一样
 
@@ -47,13 +47,13 @@ public class MonsterBrushManager : MonoBehaviour
         {
             if (isCanBrushMonster)
             {
-                if(currentWavesNumber >= ProcessControl.Instance.WavesNumber[currentWaves])
+                if (currentWavesNumber >= ProcessControl.Instance.WavesNumber[currentWaves])
                 {
                     currentWavesNumber = 0;
                     currentWaves += 1;
-                    if(currentWaves >= ProcessControl.Instance.WavesNumber.Length)
+                    if (currentWaves >= ProcessControl.Instance.WavesNumber.Length)
                     {
-                        ProcessControl.Instance.EndBattle();
+                        StartCoroutine(BrushIsOver());
                     }
                     else
                     {
@@ -72,7 +72,7 @@ public class MonsterBrushManager : MonoBehaviour
                     SpawnMonster();
                     // 更新下一次刷怪的时间
                     nextSpawnTime = Time.time + spawnInterval;
-                    
+
                 }
             }
             else
@@ -81,7 +81,7 @@ public class MonsterBrushManager : MonoBehaviour
                 if (ProcessControl.Instance.KillsNumber >= sum)
                 {
                     isCanBrushMonster = true;
-                }  
+                }
             }
         }
     }
@@ -94,7 +94,7 @@ public class MonsterBrushManager : MonoBehaviour
         CurrentWavesKilled = SumOfFirstIElements(ProcessControl.Instance.WavesNumber, currentWaves);
         CurrentWavesNumberText = ProcessControl.Instance.WavesNumber[currentWaves];
         GameObject monsterPrefab;
-        if(currentWaves < 3)
+        if (currentWaves < 3)
         {
             if (currentWaves == 0 && !FirstHint)
             {
@@ -114,7 +114,7 @@ public class MonsterBrushManager : MonoBehaviour
                 ThirdHint = true;
                 return;
             }
-            monsterPrefab = monsterPrefabs[currentWaves]; 
+            monsterPrefab = monsterPrefabs[currentWaves];
         }
         else
         {
@@ -129,7 +129,7 @@ public class MonsterBrushManager : MonoBehaviour
         }
 
         // 随机选择一个生成位置
-        int spawnPointIndex = Random.Range(0, spawnPoints.Length);  
+        int spawnPointIndex = Random.Range(0, spawnPoints.Length);
         // 检查生成的位置是否与上一次相同，如果相同则重新生成
         while (spawnPointIndex == lastSpawnPointIndex)
         {
@@ -172,5 +172,15 @@ public class MonsterBrushManager : MonoBehaviour
         CurrentWavesKilled = 0;
         ProcessControl.Instance.KilledNumberText.text = "0 / 0";
         ProcessControl.Instance.Fire.GetComponent<SkinnedMeshRenderer>().material = ProcessControl.Instance.Fire1;
+    }
+
+    private IEnumerator BrushIsOver()
+    {
+        yield return new WaitForSeconds(6f);
+        if (ProcessControl.Instance.PlayerBlood > 0)
+        {
+            ProcessControl.Instance.EndBattle();
+        }
+        
     }
 }

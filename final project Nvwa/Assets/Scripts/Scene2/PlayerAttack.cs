@@ -14,7 +14,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject RightHanded;
     public GameObject LeftHandedMesh;
     public GameObject RightHandedMesh;
-    private string command = "闪电";
+    public GameObject Eye;
+    private string command = "进攻";
     private float TimeControl;
 
     private FireGesture fireGesture; //攻击手势
@@ -37,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
         ModuleManager.Instance.RegistModule("com.rokid.voicecommand.VoiceCommandHelper", false);
         OfflineVoiceModule.Instance.ChangeVoiceCommandLanguage(LANGUAGE.CHINESE);
 
-        OfflineVoiceModule.Instance.AddInstruct(LANGUAGE.CHINESE, "闪电", "shan dian", this.gameObject.name, "OnReceive");
+        OfflineVoiceModule.Instance.AddInstruct(LANGUAGE.CHINESE, "进攻", "jin gong", this.gameObject.name, "OnReceive");
         OfflineVoiceModule.Instance.Commit();
         TimeControl = 0;
 
@@ -67,11 +68,13 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnReceive(string msg)
     {
-        if (string.Equals(command, msg) && ProcessControl.Instance.CurrentWaves >= 2)
+        // && ProcessControl.Instance.CurrentWaves >= 2
+        if (string.Equals(command, msg))
         {
-            Instantiate(VoicAttack, Camera.main.transform.position, Camera.main.transform.rotation);
+            Instantiate(VoicAttack, Eye.transform.position, Eye.transform.rotation);
+            Scene2VoiceManager.Instance.FirstAttackEffectPlay();
         }
-        Scene2VoiceManager.Instance.FirstAttackEffectPlay();
+        
     }
 
     private void OnDestroy()

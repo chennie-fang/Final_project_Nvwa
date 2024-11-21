@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ProcessControl : MonoSingleton<ProcessControl>
 {
@@ -35,21 +36,27 @@ public class ProcessControl : MonoSingleton<ProcessControl>
     public GameObject Card2;
     public GameObject Card3;
 
+    public int PlayerBlood;
+
     /*void Awake()
     {
         Application.targetFrameRate = 60;
     }*/
+    private void Start()
+    {
+        StartCoroutine(AllBefore());
+    }
     void Update()
     {
         //KilledNumberText.text = KillsNumber.ToString();
-        if (IsAnimationFinished(HandStartAnimationName) && isNeedBrush)
+        /*if (IsAnimationFinished(HandStartAnimationName) && isNeedBrush)
         {
             MonsterBrush.SetActive(true);
             isNeedBrush = false;
-        }
+        }*/
 
         //Debug.Log(KillsNumber);
-        if (IsAnimationFinished(HandBackAnimationName) && isNeedHandBack)
+        /*if (IsAnimationFinished(HandBackAnimationName) && isNeedHandBack)
         {
             foreach (Animator ani in StartAnimator)
             {
@@ -64,22 +71,21 @@ public class ProcessControl : MonoSingleton<ProcessControl>
             {
                 FailurePanel.SetActive(true);
             }
-        }
+        }*/
     }
     private void OnEnable()
     {
-        StartPanel.SetActive(true);
         EndPanel.SetActive(false);
         StatusPanel.SetActive(false);
         MonsterBrush.SetActive(false);
-        foreach (Animator ani in StartAnimator)
+       /* foreach (Animator ani in StartAnimator)
         {
             ani.enabled = false;
         }
         foreach (Animator ani in EndAnimator)
         {
             ani.enabled = false;
-        }
+        }*/
     }
     /// <summary>
     /// 开始战斗
@@ -104,6 +110,7 @@ public class ProcessControl : MonoSingleton<ProcessControl>
         }
         HandAnimator.Play(HandStartAnimationName);
         isNeedBrush = true;
+        StartCoroutine(GameStart());
     }
 
     /// <summary>
@@ -126,6 +133,7 @@ public class ProcessControl : MonoSingleton<ProcessControl>
         isNeedHandBack = true;
         isEndOrFailure = true;
         Scene2VoiceManager.Instance.BattleSucceedPlay();
+        StartCoroutine(GameOver());
     }
 
     /// <summary>
@@ -150,10 +158,10 @@ public class ProcessControl : MonoSingleton<ProcessControl>
         {
             ani.enabled = true;
         }
-        HandAnimator.Play(HandBackAnimationName);
+        //HandAnimator.Play(HandBackAnimationName);
         isNeedHandBack = true;
         isEndOrFailure = false;
-
+        StartCoroutine(GameOver());
     }
 
     public void ClearMonster()
@@ -174,6 +182,45 @@ public class ProcessControl : MonoSingleton<ProcessControl>
 
     public void ReturnToSatrtScene()
     {
+        SceneManager.LoadScene("StartScene");
+    }
 
+    /// <summary>
+    /// 游戏开始时调用
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator GameStart()
+    {
+        yield return new WaitForSeconds(4f);
+        MonsterBrush.SetActive(true);
+        isNeedBrush = false;
+    }
+    private IEnumerator GameOver()
+    {
+        if (isEndOrFailure)
+        {
+            yield return new WaitForSeconds(4f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+        }
+
+        isNeedHandBack = false;
+        if (isEndOrFailure)
+        {
+            EndPanel.SetActive(true);
+        }
+        else
+        {
+            FailurePanel.SetActive(true);
+        }
+    }
+
+    private IEnumerator AllBefore()
+    {
+        yield return new WaitForSeconds(16f);
+        //testCompletionPanel.SetActive(true);
+        StartPanel.SetActive(true);
     }
 }

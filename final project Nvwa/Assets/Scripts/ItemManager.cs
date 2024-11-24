@@ -66,7 +66,7 @@ public class ItemManager : MonoBehaviour
         nextSceneButton.onClick.AddListener(SwitchToNextScene);
         // 初始化测试配方完成面板
         StartCoroutine(AllBefore());
-        proceedToMainButton.onClick.AddListener(OnProceedToMainButtonClicked);
+        //proceedToMainButton.onClick.AddListener(OnProceedToMainButtonClicked);
 
         DiePanel.SetActive(false);
         DieBtn.onClick.AddListener(DieBtnclick);
@@ -118,6 +118,7 @@ public class ItemManager : MonoBehaviour
     {
         PointerUI.SetActive(false);
         testfpanel.SetActive(false);
+        // 
         recipeDisplayManager.allRecipes[0].winAsset.SetActive(false);
         recipeDisplayManager.ShowNextRecipe();
      
@@ -718,8 +719,9 @@ public class ItemManager : MonoBehaviour
 
     private IEnumerator AllBefore()
     {
-        yield return new WaitForSeconds(10f);
-        testCompletionPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        OnProceedToMainButtonClicked();
+        //testCompletionPanel.SetActive(true);
     }
 }
 

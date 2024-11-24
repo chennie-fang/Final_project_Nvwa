@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 5c7d69196dc677441beb6fe56ae14e7e
+  - enabled: 1
     path: Assets/Scenes/SceneFirst.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
@@ -17,9 +20,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/StartTest.unity
     guid: d0f0914a0bea6b248970d81a8baf8d55
-  - enabled: 0
-    path: Assets/Scenes/StartScene.unity
-    guid: 5c7d69196dc677441beb6fe56ae14e7e
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: beba7a478448544f3add01ee5854876a, type: 2}
     rokid.xr.package.setting: {fileID: 11400000, guid: 815b946fb90464eea8673c13ee9b0cda, type: 2}

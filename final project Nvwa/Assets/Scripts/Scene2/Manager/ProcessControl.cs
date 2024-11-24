@@ -219,8 +219,10 @@ public class ProcessControl : MonoSingleton<ProcessControl>
 
     private IEnumerator AllBefore()
     {
-        yield return new WaitForSeconds(16f);
+        yield return new WaitForSeconds(17f);
         //testCompletionPanel.SetActive(true);
-        StartPanel.SetActive(true);
+        //StartPanel.SetActive(true);
+        StartBattle();
+        Scene2VoiceManager.Instance.BattleStartPlay();
     }
 }

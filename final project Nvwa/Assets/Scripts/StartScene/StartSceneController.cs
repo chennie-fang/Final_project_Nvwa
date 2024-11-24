@@ -63,7 +63,7 @@ public class StartSceneController : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(transform.position, target.position);
-        if(distance <= 4f && IsFirstEnter && StartUIIsOver)
+        if(distance <= 4.5f && IsFirstEnter && StartUIIsOver)
         {
             Waves.SetActive(false);
             Video.SetActive(true);
@@ -111,13 +111,19 @@ public class StartSceneController : MonoBehaviour
         StartUIIsOver = true;
         Mirror.SetActive(true);
         SkipButton.SetActive(false);
+        StartCoroutine(AudioPlay());
+    }
+    private IEnumerator AudioPlay()
+    {
+        yield return new WaitForSeconds(3f);
+        Mirror.GetComponent<AudioSource>().Play();
     }
     private IEnumerator OpeningRemarksPlay()
     {
         // µ»¥˝“ª√Î÷”
         yield return new WaitForSeconds(2f);
         OpeningRemarks.Play();
-        SkipButton.SetActive(true);
+        //SkipButton.SetActive(true);
         StartCoroutine(FirstEnterScene1());
     }
     private IEnumerator FirstEnterScene1()
@@ -126,5 +132,6 @@ public class StartSceneController : MonoBehaviour
         //EnterSceneFirst();
         SkipButton.SetActive(false);
         StartInetrface.SetActive(true);
+        Mirror.SetActive(false);
     }
 }

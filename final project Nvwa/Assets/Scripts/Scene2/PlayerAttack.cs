@@ -15,10 +15,10 @@ public class PlayerAttack : MonoBehaviour
     public GameObject LeftHandedMesh;
     public GameObject RightHandedMesh;
     public GameObject Eye;
-    private string command = "½ø¹¥";
+    private string command = "ï¿½ï¿½ï¿½ï¿½";
     private float TimeControl;
 
-    private FireGesture fireGesture; //¹¥»÷ÊÖÊÆ
+    private FireGesture fireGesture; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private float coldTime = 1f;
     private float leftFireCountdown;
     private float rightFireCountdown;
@@ -34,15 +34,15 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ÓïÑÔÈ·¶¨
+        // ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½
         ModuleManager.Instance.RegistModule("com.rokid.voicecommand.VoiceCommandHelper", false);
         OfflineVoiceModule.Instance.ChangeVoiceCommandLanguage(LANGUAGE.CHINESE);
 
-        OfflineVoiceModule.Instance.AddInstruct(LANGUAGE.CHINESE, "½ø¹¥", "jin gong", this.gameObject.name, "OnReceive");
+        OfflineVoiceModule.Instance.AddInstruct(LANGUAGE.CHINESE, "ï¿½ï¿½ï¿½ï¿½", "jin gong", this.gameObject.name, "OnReceive");
         OfflineVoiceModule.Instance.Commit();
         TimeControl = 0;
 
-        //¹¥»÷ÊÖÊÆ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         fireGesture = GestureControlMgr.Instance.FindGestureType<FireGesture>();
 
         //fireGesture.onLeftGestureUpdate += LeftHandAttack;
@@ -56,14 +56,14 @@ public class PlayerAttack : MonoBehaviour
         {
             Instantiate(VoicAttack, Camera.main.transform.position, Camera.main.transform.rotation);
         }
-        if (LeftHandedMesh.activeSelf)
+        /*if (LeftHandedMesh.activeSelf)
         {
             LeftHandedMesh.SetActive(false);
         }
         if (RightHandedMesh.activeSelf)
         {
             RightHandedMesh.SetActive(false);
-        }
+        }*/
     }
 
     public void OnReceive(string msg)

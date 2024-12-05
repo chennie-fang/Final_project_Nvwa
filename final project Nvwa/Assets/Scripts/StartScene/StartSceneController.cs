@@ -21,8 +21,8 @@ public class StartSceneController : MonoBehaviour
 
     public AudioSource OpeningRemarks;
 
-    public GameObject StartInetrface;               // 开始界面
-    public GameObject SkipButton;                   // 跳过按钮
+    public GameObject StartInetrface;              
+    public GameObject SkipButton;                 
     public GameObject Mirror;
     public GameObject StartUI;
 
@@ -35,18 +35,19 @@ public class StartSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!IsFirstEnter)
+        if (IsFirstEnter)
+        {
+          
+            StartInetrface.SetActive(false);
+            StartUI.SetActive(true);
+            StartUIIsOver = false;
+        }
+        else
         {
             StartInetrface.SetActive(true);
             Mirror.SetActive(false);
             StartUI.SetActive(false);
             StartUIIsOver = true;
-        }
-        else
-        {
-            StartInetrface.SetActive(false);
-            StartUI.SetActive(true);
-            StartUIIsOver = false;
         }
 
         if (FirstISOver)
@@ -68,7 +69,7 @@ public class StartSceneController : MonoBehaviour
             Waves.SetActive(false);
             Video.SetActive(true);
             MirrorMaterial.DOFade(0f, 4f);
-            // 获取粒子系统的Emission模块
+            // 锟斤拷取锟斤拷锟斤拷系统锟斤拷Emission模锟斤拷
             ParticleSystem.EmissionModule emission1 = WavesParticleSystem1.emission;
             emission1.rateOverTime = 0f;
             ParticleSystem.EmissionModule emission2 = WavesParticleSystem2.emission;
@@ -97,7 +98,8 @@ public class StartSceneController : MonoBehaviour
 
     public void EnterSceneThird()
     {
-        //SceneManager.LoadScene("SceneThird");
+        SceneManager.LoadScene("ThirdScene");
+        SecondISOver = true;
     }
     public void SkipAnimation()
     {
@@ -120,7 +122,7 @@ public class StartSceneController : MonoBehaviour
     }
     private IEnumerator OpeningRemarksPlay()
     {
-        // 等待一秒钟
+        // 锟饺达拷一锟斤拷锟斤拷
         yield return new WaitForSeconds(2f);
         OpeningRemarks.Play();
         //SkipButton.SetActive(true);

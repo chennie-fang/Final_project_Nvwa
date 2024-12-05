@@ -11,15 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SceneFirst.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Scenes/NextScene.unity
-    guid: d68fedbedec2b184c90a38392dac2d4e
   - enabled: 1
     path: Assets/Scenes/SceneSecond.unity
     guid: 8202c4b7b55e3424487c5c93bec1a48a
-  - enabled: 0
-    path: Assets/Scenes/StartTest.unity
-    guid: d0f0914a0bea6b248970d81a8baf8d55
+  - enabled: 1
+    path: Assets/Scenes/ThirdScene.unity
+    guid: 4af44270a9f024dd5ba16ceae182331b
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: beba7a478448544f3add01ee5854876a, type: 2}
     rokid.xr.package.setting: {fileID: 11400000, guid: 815b946fb90464eea8673c13ee9b0cda, type: 2}

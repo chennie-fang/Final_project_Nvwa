@@ -1,1 +1,2 @@
 # Final_project_Nvwa
+I have developed a game called Rebirth of Nuwa, which aims to explore the multiple identities of women and their emotional worlds in the modern family through virtual reality (VR) technology and the story of Nuwa, the god of creation in Chinese mythology. In this immersive experience, players will interact with elements in the virtual environment through gestural interactions to feel the strength and growth of women in the family.
